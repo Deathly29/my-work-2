@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vertical Love Heart Flow</title>
+<title>Love Heart Flow</title>
 
 <style>
 body {
@@ -24,12 +24,12 @@ body {
 /* Heart container */
 #ui {
   position: relative;
-  width: 420px;   /* bigger */
-  height: 420px;  /* bigger */
-  transform: rotateX(25deg); /* more vertical */
+  width: 420px;
+  height: 460px; /* extra space for bottom text */
+  transform: rotateX(25deg);
 }
 
-/* Text style */
+/* Flowing heart text */
 .love {
   position: absolute;
   color: #ff8fb1;
@@ -38,22 +38,51 @@ body {
   white-space: nowrap;
   text-shadow: 0 0 14px #fff;
 }
+
+/* Bottom message */
+#bottom-text {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  transform: rotateX(-25deg); /* cancel tilt */
+}
+
+#bottom-text .magic {
+  color: #ff4d6d;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 16px #fff;
+}
+
+#bottom-text .name {
+  margin-top: 6px;
+  color: #ffc2d1;
+  font-size: 20px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #fff;
+}
 </style>
 </head>
 
 <body>
 
 <div id="scene">
-  <div id="ui"></div>
+  <div id="ui">
+    <div id="bottom-text">
+      <div class="magic">The three magical words: I love you</div>
+      <div class="name">— tanishkaa</div>
+    </div>
+  </div>
 </div>
 
 <script>
 const ui = document.getElementById("ui");
 
-const COUNT = 100;          // more text
+const COUNT = 100;
 const TEXT  = "I love you ";
-const SPEED = 0.000010;       // 🔽 slower speed
-const SCALE = 20;           // 🔼 bigger heart
+const SPEED = 0.00010;
+const SCALE = 20;
 
 let start = Date.now();
 const items = [];
@@ -69,7 +98,7 @@ function heart(t) {
   };
 }
 
-/* Create text elements */
+/* Create flowing text */
 for (let i = 0; i < COUNT; i++) {
   const span = document.createElement("span");
   span.className = "love";
@@ -82,12 +111,12 @@ for (let i = 0; i < COUNT; i++) {
 function animate() {
   const time = (Date.now() - start) * SPEED;
 
-  items.forEach((item) => {
+  items.forEach(item => {
     const t = (item.offset * Math.PI * 2 + time) % (Math.PI * 2);
     const p = heart(t);
 
     const x = 210 + p.x * SCALE;
-    const y = 210 + p.y * SCALE * 1.25; // 🔼 more vertical stretch
+    const y = 210 + p.y * SCALE * 1.25;
 
     item.el.style.left = x + "px";
     item.el.style.top  = y + "px";
@@ -102,5 +131,3 @@ animate();
 
 </body>
 </html>
-
-

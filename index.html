@@ -25,7 +25,7 @@ body {
 #ui {
   position: relative;
   width: 420px;
-  height: 460px; /* extra space for bottom text */
+  height: 420px;
   transform: rotateX(25deg);
 }
 
@@ -39,26 +39,35 @@ body {
   text-shadow: 0 0 14px #fff;
 }
 
-/* Bottom message */
-#bottom-text {
+/* Center message */
+#center-text {
   position: absolute;
-  bottom: 0;
-  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(-25deg);
   text-align: center;
-  transform: rotateX(-25deg); /* cancel tilt */
+  pointer-events: none;
 }
 
-#bottom-text .magic {
-  color: #ff4d6d;
-  font-size: 20px;
-  font-weight: bold;
-  text-shadow: 0 0 16px #fff;
-}
-
-#bottom-text .name {
-  margin-top: 6px;
+#center-text .magic {
   color: #ffc2d1;
-  font-size: 20px;
+  font-size: 16px;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #fff;
+}
+
+#center-text .big-love {
+  margin: 6px 0;
+  color: #ff4d6d;
+  font-size: 28px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px #fff;
+}
+
+#center-text .name {
+  color: #ff8fb1;
+  font-size: 14px;
   letter-spacing: 2px;
   text-shadow: 0 0 10px #fff;
 }
@@ -69,9 +78,9 @@ body {
 
 <div id="scene">
   <div id="ui">
-    <div id="bottom-text">
-      <div class="magic">The three magical words: I love you</div>
-      <div class="name">— tanishkaa</div>
+    <div id="center-text">
+     <div class="big-love">I love you</div>
+      <div class="name">— tanishkaa ❤️</div>
     </div>
   </div>
 </div>
@@ -79,15 +88,15 @@ body {
 <script>
 const ui = document.getElementById("ui");
 
-const COUNT = 100;
+const COUNT = 100;          // amount of flowing text
 const TEXT  = "I love you ";
-const SPEED = 0.00010;
-const SCALE = 20;
+const SPEED = 0.00010;       // slower speed
+const SCALE = 20;           // heart size
 
 let start = Date.now();
 const items = [];
 
-/* Heart formula */
+/* Heart math */
 function heart(t) {
   return {
     x: 16 * Math.pow(Math.sin(t), 3),
@@ -98,7 +107,7 @@ function heart(t) {
   };
 }
 
-/* Create flowing text */
+/* Create text nodes */
 for (let i = 0; i < COUNT; i++) {
   const span = document.createElement("span");
   span.className = "love";
@@ -107,7 +116,7 @@ for (let i = 0; i < COUNT; i++) {
   items.push({ el: span, offset: i / COUNT });
 }
 
-/* Animate flow */
+/* Animate flowing text */
 function animate() {
   const time = (Date.now() - start) * SPEED;
 
@@ -116,7 +125,7 @@ function animate() {
     const p = heart(t);
 
     const x = 210 + p.x * SCALE;
-    const y = 210 + p.y * SCALE * 1.25;
+    const y = 210 + p.y * SCALE * 1.25; // vertical stretch
 
     item.el.style.left = x + "px";
     item.el.style.top  = y + "px";
@@ -131,3 +140,4 @@ animate();
 
 </body>
 </html>
+

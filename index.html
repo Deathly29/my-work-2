@@ -21,43 +21,11 @@ body {
   perspective: 1000px;
 }
 
-/* Wrapper */
-#wrapper {
-  position: relative;
-  width: 520px;
-}
-
-/* LEFT & RIGHT PHOTOS */
-.photo {
-  position: absolute;
-  top: -90px;              /* above heart */
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: 0 0 20px rgba(255, 120, 160, 0.9);
-}
-
-.photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.photo.left {
-  left: 0;
-}
-
-.photo.right {
-  right: 0;
-}
-
 /* Heart container */
 #ui {
   position: relative;
   width: 420px;
   height: 420px;
-  margin: 0 auto;
   transform: rotateX(25deg);
 }
 
@@ -71,7 +39,7 @@ body {
   text-shadow: 0 0 14px #fff;
 }
 
-/* Center text */
+/* Center message */
 #center-text {
   position: absolute;
   top: 50%;
@@ -109,36 +77,21 @@ body {
 <body>
 
 <div id="scene">
-  <div id="wrapper">
-
-    <!-- LEFT PHOTO -->
-    <div class="photo left">
-      <img src="photo1.jpg" alt="Left Photo">
+  <div id="ui">
+    <div id="center-text">
+      <div class="big-love">I love you</div>
+      <div class="name">— Tanishkaa ❤️</div>
     </div>
-
-    <!-- RIGHT PHOTO -->
-    <div class="photo right">
-      <img src="photo2.jpg" alt="Right Photo">
-    </div>
-
-    <!-- HEART -->
-    <div id="ui">
-      <div id="center-text">
-        <div class="big-love">I love you</div>
-        <div class="name">— Tanishkaa ❤️</div>
-      </div>
-    </div>
-
   </div>
 </div>
 
 <script>
 const ui = document.getElementById("ui");
 
-const COUNT = 100;
+const COUNT = 100;          // amount of flowing text
 const TEXT  = "I love you ";
-const SPEED = 0.00010;
-const SCALE = 20;
+const SPEED = 0.00010;       // slower speed
+const SCALE = 20;           // heart size
 
 let start = Date.now();
 const items = [];
@@ -154,7 +107,7 @@ function heart(t) {
   };
 }
 
-/* Create flowing text */
+/* Create text nodes */
 for (let i = 0; i < COUNT; i++) {
   const span = document.createElement("span");
   span.className = "love";
@@ -163,7 +116,7 @@ for (let i = 0; i < COUNT; i++) {
   items.push({ el: span, offset: i / COUNT });
 }
 
-/* Animate */
+/* Animate flowing text */
 function animate() {
   const time = (Date.now() - start) * SPEED;
 
@@ -172,7 +125,7 @@ function animate() {
     const p = heart(t);
 
     const x = 210 + p.x * SCALE;
-    const y = 210 + p.y * SCALE * 1.25;
+    const y = 210 + p.y * SCALE * 1.25; // vertical stretch
 
     item.el.style.left = x + "px";
     item.el.style.top  = y + "px";
@@ -187,5 +140,6 @@ animate();
 
 </body>
 </html>
+
 
 

@@ -21,6 +21,27 @@ body {
   perspective: 1000px;
 }
 
+/* Wrapper */
+#wrapper {
+  position: relative;
+}
+
+/* Top photos */
+#top-photos {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+#top-photos img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 18px rgba(255, 120, 160, 0.9);
+}
+
 /* Heart container */
 #ui {
   position: relative;
@@ -39,7 +60,7 @@ body {
   text-shadow: 0 0 14px #fff;
 }
 
-/* Center message */
+/* Center text */
 #center-text {
   position: absolute;
   top: 50%;
@@ -77,21 +98,32 @@ body {
 <body>
 
 <div id="scene">
-  <div id="ui">
-    <div id="center-text">
-     <div class="big-love">I love you</div>
-      <div class="name">— tanishkaa ❤️</div>
+  <div id="wrapper">
+
+    <!-- TOP PHOTOS -->
+    <div id="top-photos">
+      <img src="photo1.jpg" alt="Photo 1">
+      <img src="photo2.jpg" alt="Photo 2">
     </div>
+
+    <!-- HEART -->
+    <div id="ui">
+      <div id="center-text">
+        <div class="big-love">I love you</div>
+        <div class="name">— Ridam ❤️</div>
+      </div>
+    </div>
+
   </div>
 </div>
 
 <script>
 const ui = document.getElementById("ui");
 
-const COUNT = 100;          // amount of flowing text
+const COUNT = 100;
 const TEXT  = "I love you ";
-const SPEED = 0.00010;       // slower speed
-const SCALE = 20;           // heart size
+const SPEED = 0.00010;
+const SCALE = 20;
 
 let start = Date.now();
 const items = [];
@@ -107,7 +139,7 @@ function heart(t) {
   };
 }
 
-/* Create text nodes */
+/* Create flowing text */
 for (let i = 0; i < COUNT; i++) {
   const span = document.createElement("span");
   span.className = "love";
@@ -116,7 +148,7 @@ for (let i = 0; i < COUNT; i++) {
   items.push({ el: span, offset: i / COUNT });
 }
 
-/* Animate flowing text */
+/* Animate */
 function animate() {
   const time = (Date.now() - start) * SPEED;
 
@@ -125,7 +157,7 @@ function animate() {
     const p = heart(t);
 
     const x = 210 + p.x * SCALE;
-    const y = 210 + p.y * SCALE * 1.25; // vertical stretch
+    const y = 210 + p.y * SCALE * 1.25;
 
     item.el.style.left = x + "px";
     item.el.style.top  = y + "px";
@@ -140,4 +172,5 @@ animate();
 
 </body>
 </html>
+
 
